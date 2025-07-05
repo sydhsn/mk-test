@@ -1,3 +1,4 @@
+// app/page.tsx
 "use client"
 
 import { useSession, signOut } from "next-auth/react"
@@ -12,16 +13,16 @@ export default function HomePage() {
         <h1 className="text-xl font-bold text-primary">MyApp</h1>
 
         <nav className="space-x-4">
-          <Link href="/" className="text-muted-foreground hover:text-primary">Home</Link>
-          <Link href="/about" className="text-muted-foreground hover:text-primary">About</Link>
-          <Link href="/contact" className="text-muted-foreground hover:text-primary">Contact</Link>
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
+          <Link href="/contact">Contact</Link>
 
           {session?.user ? (
             <>
-              <span className="text-sm text-muted-foreground">Hi, {session.user.email}</span>
+              <span className="text-sm">Hi, {session.user.email}</span>
               <button
                 onClick={() => signOut()}
-                className="px-4 py-1 rounded bg-destructive text-white hover:bg-destructive/90 transition"
+                className="px-4 py-1 bg-red-500 text-white rounded"
               >
                 Logout
               </button>
@@ -29,12 +30,12 @@ export default function HomePage() {
           ) : (
             <>
               <Link href="/auth/signin">
-                <button className="px-4 py-1 rounded bg-primary text-white hover:bg-primary/90 transition">
+                <button className="px-4 py-1 bg-blue-600 text-white rounded">
                   Login
                 </button>
               </Link>
               <Link href="/auth/register">
-                <button className="px-4 py-1 rounded border border-primary text-primary hover:bg-primary/10 transition">
+                <button className="px-4 py-1 border border-blue-600 text-blue-600 rounded">
                   Register
                 </button>
               </Link>
