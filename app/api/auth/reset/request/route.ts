@@ -21,20 +21,20 @@ export async function POST(req: Request) {
     const token = randomBytes(32).toString("hex")
     const expires = addMinutes(new Date(), 15)
 
-    // Remove existing token for same user if needed (optional)
-    await prisma.passwordResetToken.deleteMany({ where: { email } })
-
     await prisma.passwordResetToken.create({
-      data: { email, token, expires },
+      data: {
+        email,
+        token,
+        expiresAt: expires,     // ✅ use expiresAt
+        userId: user.id,        // ✅ use user.id
+      },
     })
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL
-    const resetUrl = `${baseUrl}/auth/reset/${token}`
+    const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset/${token}`
 
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_SERVER_HOST!,
       port: Number(process.env.EMAIL_SERVER_PORT!),
-      secure: false,
       auth: {
         user: process.env.EMAIL_SERVER_USER!,
         pass: process.env.EMAIL_SERVER_PASSWORD!,
@@ -56,8 +56,8 @@ export async function POST(req: Request) {
     })
 
     return NextResponse.json({ message: "Reset link sent" })
-  } catch (error) {
-    console.error("Reset email error:", error)
+  } catch (err) {
+    console.error("Reset request error:", err)
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 })
   }
 }
