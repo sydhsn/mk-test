@@ -1,8 +1,22 @@
 @import "tailwindcss";
 :root {
-  --color-primary: #1e40af; /* blue-800 */
-  --color-secondary: #f59e0b; /* amber-500 */
+  --color-primary: 221.2 83.2% 53.3%;
+  --color-background: 0 0% 100%;
+  --color-foreground: 222.2 47.4% 11.2%;
+  --color-muted: 210 40% 96.1%;
+  --color-muted-foreground: 215.4 16.3% 46.9%;
+  --color-card: 0 0% 100%;
+  --color-destructive: 0 84.2% 60.2%;
 }
+
+.dark {
+  --color-background: 222.2 47.4% 11.2%;
+  --color-foreground: 210 40% 98%;
+  --color-muted: 217 33% 17%;
+  --color-muted-foreground: 215 20% 65%;
+  --color-card: 222.2 47.4% 15%;
+}
+
 
 @theme inline {
   --color-background: var(--background);
