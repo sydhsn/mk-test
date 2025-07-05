@@ -8,9 +8,11 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  email    String  @unique
+  id       String @id @default(cuid())
+  email    String @unique
   password String
+
+  passwordResetTokens PasswordResetToken[]
 }
 
 model PasswordResetToken {
@@ -19,5 +21,7 @@ model PasswordResetToken {
   token     String   @unique
   expiresAt DateTime
   createdAt DateTime @default(now())
-}
 
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
