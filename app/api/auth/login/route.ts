@@ -2,7 +2,6 @@
 import { PrismaClient } from "@prisma/client"
 import { compare } from "bcryptjs"
 import { NextResponse } from "next/server"
-import { signIn } from "next-auth/react"
 
 const prisma = new PrismaClient()
 
